@@ -2,27 +2,7 @@
 
 Cypress + Cucumber (Gherkin, POM, tags) against the [Toolshop](https://practicesoftwaretesting.com) UI. Tightened from [Cypress-Automation-Lineup](https://github.com/sahsankhan/Cypress-Automation-Lineup).
 
-Pair with [Playwright BDD](https://github.com/sahsankhan/Playwright-bdd) for the same app with a different runner.
-
-## Scenarios
-
-| Tag | Feature file | What it proves |
-|---|---|---|
-| `@smoke` `@product` | `product.feature` | Live API picks an in-stock item → product page loads → add to cart is visible |
-| `@e2e` `@checkout` | `checkout.feature` | Register unique user → sign in → add product → cash on delivery → order confirmed |
-
-Each checkout run registers a **new user** (the shared demo customer is often locked).
-
-## Cypress vs Playwright on Toolshop
-
-The Toolshop **home product grid** does not load reliably under Cypress automation (empty skeleton cards). That is a Cypress + site limitation, not a step-definition bug.
-
-| Area | This repo (Cypress) | Playwright BDD |
-|---|---|---|
-| Smoke | Product detail page | Home catalog grid |
-| Checkout product pick | Direct `/product/{id}` URL | Click from catalog |
-
-Smoke still uses the live Toolshop API only to **choose an in-stock product id** — no cart or auth setup in the smoke path.
+UI-focused: product detail smoke, register, sign in, checkout. Each checkout run registers a unique user (the shared demo customer is often locked).
 
 ## Prerequisites
 
@@ -41,9 +21,7 @@ copy .env.example .env
 
 On macOS/Linux use `cp .env.example .env`.
 
-Dependencies: `cypress` 13, `@badeball/cypress-cucumber-preprocessor`, `@bahmutov/cypress-esbuild-preprocessor`, `cucumber-html-reporter`, `dotenv`.
-
-Use **Chrome** (`BROWSER=chrome` in `.env`). Cypress Electron usually shows empty product cards on Toolshop.
+`npm install` pulls `cypress` 13, `@badeball/cypress-cucumber-preprocessor`, `@bahmutov/cypress-esbuild-preprocessor`, `cucumber-html-reporter`, and `dotenv`.
 
 ### Cucumber glue (Ctrl+click)
 
@@ -107,6 +85,13 @@ start reports\cucumber-report.html
 ```
 
 On macOS: `open reports/cucumber-report.html`. On Linux: `xdg-open reports/cucumber-report.html`.
+
+## Tags
+
+| Tag | Feature |
+|---|---|
+| `@smoke` / `@product` | In-stock product page + add to cart button |
+| `@e2e` / `@checkout` | Register, sign in, cart, cash on delivery |
 
 ## Env (`.env`)
 
