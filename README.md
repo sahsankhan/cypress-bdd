@@ -1,6 +1,6 @@
 # Cypress BDD
 
-Cypress + Cucumber (Gherkin, POM, tags) against the [Toolshop](https://practicesoftwaretesting.com) UI. Tightened from [Cypress-Automation-Lineup](https://github.com/sahsankhan/Cypress-Automation-Lineup).
+Cypress + Cucumber (Gherkin, POM, tags) against the [Toolshop](https://practicesoftwaretesting.com) UI. 
 
 UI-focused: product detail smoke, register, sign in, checkout. Each checkout run registers a unique user (the shared demo customer is often locked).
 
