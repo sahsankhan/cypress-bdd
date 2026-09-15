@@ -1,0 +1,21 @@
+{
+  "name": "cypress-bdd",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cypress + Cucumber BDD with POM. Tightened from Cypress-Automation-Lineup, pointed at Toolshop.",
+  "scripts": {
+    "test": "node src/utils/run.js",
+    "test:headed": "node src/utils/run.js --headed",
+    "test:open": "node src/utils/run.js --open",
+    "test:smoke": "node src/utils/run.js --tags @smoke",
+    "test:e2e": "node src/utils/run.js --tags @checkout",
+    "report": "node src/utils/reporter.js"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
+    "cucumber-html-reporter": "^7.2.0",
+    "cypress": "^13.17.0",
+    "dotenv": "^16.4.7"
+  }
+}

@@ -1,0 +1,9 @@
+node_modules/
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+reports/cucumber-report.html
+reports/cucumber-report.json
+.env
+*.log
+.DS_Store
