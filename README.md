@@ -105,7 +105,9 @@ On macOS: `open reports/cucumber-report.html`. On Linux: `xdg-open reports/cucum
 
 ## CI
 
-GitHub Actions runs `npm test` (headless Chrome) and uploads `reports/`, videos, and screenshots as the `cypress-report` artifact. Cypress config sets a real Chrome `userAgent` because Toolshop returns 403 to the default HeadlessChrome UA from GitHub runners.
+GitHub Actions starts the Toolshop application inside the job with Docker Compose and runs `npm test` (headless Chrome) against `http://localhost:4200`, uploading `reports/`, videos, and screenshots as the `cypress-report` artifact.
+
+The public site cannot be used from CI: Cloudflare serves a managed challenge (`cf-mitigated: challenge`, HTTP 403) to GitHub's datacenter IPs, and headless Chrome never clears it. Running the app locally in the job removes that dependency entirely.
 
 ## Layout
 
