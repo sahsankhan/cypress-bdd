@@ -21,10 +21,11 @@ jobs:
         run: npm ci
 
       - name: Run Cypress Cucumber suite
-        run: npm test
+        run: xvfb-run --auto-servernum npm test
         env:
           CI: true
           BROWSER: chrome
+          HEADLESS: "false"
 
       - name: Upload Cypress reports
         if: always()

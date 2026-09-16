@@ -1,10 +1,10 @@
-const { fetchInStockProduct, uiBaseUrl } = require('../support/toolshop');
+const { fetchInStockProduct, visitApp } = require('../support/toolshop');
 
 class ProductPage {
   openInStockProduct() {
     fetchInStockProduct().then((product) => {
       cy.wrap(product.name).as('productName');
-      cy.visit(`${uiBaseUrl()}/product/${product.id}`);
+      visitApp(`/product/${product.id}`);
     });
   }
 

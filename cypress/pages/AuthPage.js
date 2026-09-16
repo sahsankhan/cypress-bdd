@@ -1,3 +1,5 @@
+const { visitApp } = require('../support/toolshop');
+
 class AuthPage {
   uniqueAccount() {
     const stamp = `${Date.now()}${Math.floor(Math.random() * 1000)}`;
@@ -10,7 +12,7 @@ class AuthPage {
   registerUnique() {
     const account = this.uniqueAccount();
     cy.intercept('POST', '**/users/register').as('register');
-    cy.visit(`${Cypress.env('uiBaseUrl')}/auth/register`);
+    visitApp('/auth/register');
     cy.get('[data-test="first-name"]').clear().type('Bdd');
     cy.get('[data-test="last-name"]').clear().type('Tester');
     cy.get('[data-test="dob"]').clear({ force: true }).type('1990-01-15', { force: true });
@@ -31,7 +33,7 @@ class AuthPage {
   }
 
   signIn(email, password) {
-    cy.visit(`${Cypress.env('uiBaseUrl')}/auth/login`);
+    visitApp('/auth/login');
     cy.get('[data-test="email"]').clear().type(email);
     cy.get('[data-test="password"]').clear().type(password, { parseSpecialCharSequences: false });
     cy.get('[data-test="login-submit"]').click();
