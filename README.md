@@ -105,7 +105,7 @@ On macOS: `open reports/cucumber-report.html`. On Linux: `xdg-open reports/cucum
 
 ## CI
 
-GitHub Actions runs `npm test` on push/PR (headless Chrome) and uploads `reports/`, videos, and screenshots as the `cypress-report` artifact.
+GitHub Actions runs `npm test` on Windows (headless Chrome) and uploads `reports/`, videos, and screenshots as the `cypress-report` artifact. Toolshop returns 403 to Cypress on Linux GitHub runners; Windows matches the local passing setup.
 
 ## Layout
 
