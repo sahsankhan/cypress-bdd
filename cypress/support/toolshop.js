@@ -12,7 +12,6 @@ function visitApp(pathOrUrl) {
   const base = uiBaseUrl();
   const url = pathOrUrl.startsWith('http') ? pathOrUrl : `${base}${pathOrUrl.startsWith('/') ? pathOrUrl : `/${pathOrUrl}`}`;
   cy.visit(url, {
-    failOnStatusCode: false,
     retryOnNetworkFailure: true,
     timeout: 60_000,
   });
