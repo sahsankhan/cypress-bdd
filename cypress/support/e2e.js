@@ -1,47 +1,30 @@
-const chromeUserAgent = require('./chromeUserAgent');
-
 Cypress.on('uncaught:exception', () => false);
 
 // #region agent log
 const captured = [];
-// #endregion
 
 beforeEach(() => {
-  // #region agent log
   captured.length = 0;
-  // #endregion
   cy.intercept({ hostname: /practicesoftwaretesting\.com$/ }, (req) => {
-    req.headers['user-agent'] = chromeUserAgent;
-    req.headers['accept-language'] = 'en-US,en;q=0.9';
-    // #region agent log
-    const entry = { url: req.url, resourceType: req.resourceType, requestHeaders: { ...req.headers } };
+    const entry = { url: req.url, resourceType: req.resourceType };
     captured.push(entry);
     req.continue((res) => {
       entry.status = res.statusCode;
-      entry.responseHeaders = {
-        server: res.headers.server,
-        'cf-ray': res.headers['cf-ray'],
-        'cf-mitigated': res.headers['cf-mitigated'],
-        'content-type': res.headers['content-type'],
-        via: res.headers.via,
-        'x-powered-by': res.headers['x-powered-by'],
-      };
-      entry.bodySnippet =
-        typeof res.body === 'string' ? res.body.replace(/\s+/g, ' ').slice(0, 300) : typeof res.body;
+      entry.cfMitigated = res.headers['cf-mitigated'];
+      entry.server = res.headers.server;
+      entry.setCookie = String(res.headers['set-cookie'] || '').slice(0, 120);
     });
-    // #endregion
   });
 });
 
-// #region agent log
 afterEach(() => {
   cy.task(
     'debugLog',
     {
-      hypothesisId: 'B,C,D',
+      hypothesisId: 'F',
       location: 'cypress/support/e2e.js:intercept',
       message: 'browser-proxied requests seen by Cypress',
-      data: { count: captured.length, requests: captured.slice(0, 4) },
+      data: { count: captured.length, requests: captured.slice(0, 8) },
     },
     { log: false },
   );

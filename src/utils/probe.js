@@ -9,7 +9,8 @@ const VALID_CHROME_UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
 const HEADLESS_UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.0.0 Safari/537.36';
-const CONFIG_UA = require('../../cypress/support/chromeUserAgent');
+const CONFIG_UA =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/172.16.1.5 Safari/537.36';
 
 const BROWSERISH = {
   'user-agent': VALID_CHROME_UA,

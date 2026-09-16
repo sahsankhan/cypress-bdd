@@ -3,7 +3,6 @@ const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const cypress = require('cypress');
-const chromeUserAgent = require('../../cypress/support/chromeUserAgent');
 
 const args = process.argv.slice(2);
 const headed = args.includes('--headed');
@@ -58,9 +57,6 @@ async function main() {
     browser,
     headed: headed || process.env.HEADLESS === 'false',
     env,
-    config: {
-      userAgent: chromeUserAgent,
-    },
   });
 
   await generateAndOpenReport();
