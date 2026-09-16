@@ -30,6 +30,9 @@ async function generateAndOpenReport() {
   if (!fs.existsSync(cucumberHtml)) {
     return;
   }
+  if (process.env.CI) {
+    return;
+  }
   if (process.platform === 'win32') {
     spawnSync('cmd', ['/c', 'start', '', cucumberHtml], { stdio: 'ignore' });
   } else if (process.platform === 'darwin') {

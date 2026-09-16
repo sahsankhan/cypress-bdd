@@ -103,6 +103,10 @@ On macOS: `open reports/cucumber-report.html`. On Linux: `xdg-open reports/cucum
 | `HEADLESS` | `true` | `false` for a visible browser |
 | `TIMEOUT` | `30000` | Cypress command timeout (ms) |
 
+## CI
+
+GitHub Actions runs `npm test` on push/PR (headless Chrome) and uploads `reports/`, videos, and screenshots as the `cypress-report` artifact.
+
 ## Layout
 
 ```
