@@ -20,11 +20,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Debug probe (temporary instrumentation)
+        run: node src/utils/probe.js
+        env:
+          CI: true
+          DEBUG_RUN_ID: ci-probe
+
       - name: Run Cypress Cucumber suite
         run: npm test
         env:
           CI: true
           BROWSER: chrome
+          DEBUG_RUN_ID: ci-cypress
 
       - name: Upload Cypress reports
         if: always()
@@ -35,4 +42,5 @@ jobs:
             reports/
             cypress/videos/
             cypress/screenshots/
+            debug-082df1.log
           if-no-files-found: ignore

@@ -7,6 +7,15 @@ const chromeUserAgent = require('./cypress/support/chromeUserAgent');
 
 async function setupNodeEvents(on, config) {
   await addCucumberPreprocessorPlugin(on, config);
+  // #region agent log
+  const { debugLog } = require('./src/utils/debugLog');
+  on('task', {
+    debugLog(entry) {
+      debugLog(entry);
+      return null;
+    },
+  });
+  // #endregion
   on(
     'file:preprocessor',
     createBundler({
