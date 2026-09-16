@@ -12,7 +12,7 @@ function visitApp(pathOrUrl) {
   const base = uiBaseUrl();
   const url = pathOrUrl.startsWith('http') ? pathOrUrl : `${base}${pathOrUrl.startsWith('/') ? pathOrUrl : `/${pathOrUrl}`}`;
   cy.visit(url, {
-    failOnStatusCode: false,
+    failOnStatusCode: true,
     retryOnStatusCodeFailure: true,
     retryOnNetworkFailure: true,
     timeout: 60_000,
@@ -21,11 +21,6 @@ function visitApp(pathOrUrl) {
     },
   });
   cy.get('body', { timeout: 30_000 }).should('be.visible');
-  cy.get('body').should(($body) => {
-    const blocked = /403|access denied|just a moment/i.test($body.text());
-    const hasApp = $body.find('[data-test], nav, app-root').length > 0;
-    expect(blocked && !hasApp, 'Toolshop UI loaded (not a 403/WAF page)').to.eq(false);
-  });
 }
 
 function fetchInStockProduct() {
