@@ -16,9 +16,6 @@ function visitApp(pathOrUrl) {
     retryOnStatusCodeFailure: true,
     retryOnNetworkFailure: true,
     timeout: 60_000,
-    headers: {
-      'Accept-Language': 'en-US,en;q=0.9',
-    },
   });
   cy.get('body', { timeout: 30_000 }).should('be.visible');
 }

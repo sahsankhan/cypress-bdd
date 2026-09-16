@@ -3,6 +3,7 @@ const { defineConfig } = require('cypress');
 const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 const { addCucumberPreprocessorPlugin } = require('@badeball/cypress-cucumber-preprocessor');
 const { createEsbuildPlugin } = require('@badeball/cypress-cucumber-preprocessor/esbuild');
+const chromeUserAgent = require('./cypress/support/chromeUserAgent');
 
 async function setupNodeEvents(on, config) {
   await addCucumberPreprocessorPlugin(on, config);
@@ -15,6 +16,7 @@ async function setupNodeEvents(on, config) {
   on('before:browser:launch', (browser, launchOptions) => {
     if (browser.family === 'chromium') {
       launchOptions.args.push(
+        `--user-agent=${chromeUserAgent}`,
         '--disable-blink-features=AutomationControlled',
         '--disable-dev-shm-usage',
         '--no-sandbox',
@@ -30,8 +32,7 @@ module.exports = defineConfig({
   chromeWebSecurity: false,
   viewportWidth: 1280,
   viewportHeight: 720,
-  userAgent:
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36',
+  userAgent: chromeUserAgent,
   retries: {
     runMode: 1,
     openMode: 0,
