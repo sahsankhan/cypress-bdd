@@ -19,6 +19,7 @@ async function setupNodeEvents(on, config) {
         '--disable-dev-shm-usage',
         '--no-sandbox',
         '--disable-gpu',
+        '--proxy-bypass-list=api.practicesoftwaretesting.com',
       );
     }
     return launchOptions;

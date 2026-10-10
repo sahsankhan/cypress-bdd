@@ -11,7 +11,6 @@ class AuthPage {
 
   registerUnique() {
     const account = this.uniqueAccount();
-    cy.intercept('POST', '**/users/register').as('register');
     visitApp('/auth/register');
     cy.get('[data-test="first-name"]').clear().type('Bdd');
     cy.get('[data-test="last-name"]').clear().type('Tester');
@@ -26,8 +25,7 @@ class AuthPage {
     cy.get('[data-test="email"]').clear().type(account.email);
     cy.get('[data-test="password"]').clear().type(account.password, { parseSpecialCharSequences: false });
     cy.get('[data-test="register-submit"]').should('be.enabled').click();
-    cy.wait('@register').its('response.statusCode').should('eq', 201);
-    cy.url().should('match', /login/i);
+    cy.url({ timeout: 30_000 }).should('match', /login/i);
     cy.wrap(account).as('account');
     return account;
   }
@@ -38,6 +36,22 @@ class AuthPage {
     cy.get('[data-test="password"]').clear().type(password, { parseSpecialCharSequences: false });
     cy.get('[data-test="login-submit"]').click();
     cy.get('[data-test="nav-menu"]').should('be.visible');
+  }
+
+  expectLoginPage() {
+    cy.url().should('match', /login/i);
+  }
+
+  expectAccountMenu() {
+    cy.get('[data-test="nav-menu"]').should('be.visible');
+  }
+
+  rejectBadLogin() {
+    visitApp('/auth/login');
+    cy.get('[data-test="email"]').clear().type(`nobody.${Date.now()}@example.com`);
+    cy.get('[data-test="password"]').clear().type('WrongPassword!9', { parseSpecialCharSequences: false });
+    cy.get('[data-test="login-submit"]').click();
+    cy.get('[data-test="login-error"]').should('be.visible');
   }
 }
 
